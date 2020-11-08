@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "877a7f04-1c62-42f5-bc7d-4b4780792f42",
+		"name": "ColeccionesJWT role admin",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a65c898e-c3bd-46a8-b2fb-bbd7b424ab17",
+						"exec": [
+							"tests[\"No genera error creando la cuenta\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Germancito3\",\r\n    \"password\": \"pass123\",\r\n    \"email\": \"gd.martinez@uniandes.edu.co\",\r\n    \"name\": \"Germán Martínez\",\r\n    \"role\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84f215a0-8ba6-4da0-a10c-0929c0af64cd",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_token\", data.token);\r",
+							"tests[\"No genera error ingresando a la cuenta\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Germancito3\",\r\n    \"password\": \"pass123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get usuarios role admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4fe1a68d-3df2-473a-9648-b7f8c874997e",
+						"exec": [
+							"tests[\"No genera error obteniendo todos los usuarios\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/auth/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post producto role admin 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea65717c-3730-4773-8877-7288115bccd0",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_product_id1\", data.insertedId);\r",
+							"tests[\"No genera error creando un producto\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Torta de espinaca\",\r\n    \"price\": \"$2500\",\r\n    \"quantity\": \"10\",\r\n    \"category\": \"Torta\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post producto role admin 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ee3e6ea-5eab-45d8-9223-143a5e7a6c48",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_product_id2\", data.insertedId);\r",
+							"tests[\"No genera error creando un producto\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jugo de piña\",\r\n    \"price\": \"$4000\",\r\n    \"quantity\": \"1\",\r\n    \"category\": \"Jugo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get productos role admin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f2e6c4e-f708-48ac-a096-51e2453b5fed",
+						"exec": [
+							"tests[\"No genera error obteniendo los productos\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{new_id_a}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put producto role admin 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "847900fa-57e9-4253-8a50-c70abc8315f9",
+						"exec": [
+							"tests[\"No genera error editando un producto\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Torta de maracuyá\",\r\n    \"price\": \"$3000\",\r\n    \"quantity\": \"12\",\r\n    \"category\": \"Torta\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/{{new_product_id1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						"{{new_product_id1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put producto role admin 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1a82eaa7-f4f4-4ada-bb59-b61d894e1bd0",
+						"exec": [
+							"tests[\"No genera error editando un producto\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jugo de mora\",\r\n    \"price\": \"$4500\",\r\n    \"quantity\": \"1\",\r\n    \"category\": \"Jugo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/{{new_product_id2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						"{{new_product_id2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ffc02c32-487a-4c0b-8868-953008ba7ea5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "46d18d16-c81f-4415-9531-97f6e0968def",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

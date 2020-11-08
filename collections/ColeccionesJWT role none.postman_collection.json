@@ -1,0 +1,358 @@
+{
+	"info": {
+		"_postman_id": "1565fa97-a120-403e-94a3-6b4dd4d061b1",
+		"name": "ColeccionesJWT role none",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bdef8474-637f-418b-b114-e4cae30acdd2",
+						"exec": [
+							"tests[\"No genera error creando la cuenta\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Germancito1\",\r\n    \"password\": \"pass123\",\r\n    \"email\": \"gd.martinez@uniandes.edu.co\",\r\n    \"name\": \"Germán Martínez\",\r\n    \"role\": \"cliente\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login usuario",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6d6c7fba-208c-4383-81ae-f8f2fe087029",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setGlobalVariable(\"new_token\", data.token);\r",
+							"tests[\"No genera error ingresando a la cuenta\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"Germancito1\",\r\n    \"password\": \"pass123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get usuarios role none",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4b2b340-bffd-4c1f-9572-a482d00df533",
+						"exec": [
+							"tests[\"Error correcto obteniendo los usuarios por falta de permisos\"] = responseCode.code === 403;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/auth/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post producto role none 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a4e75eb-ef19-4f8d-86b8-e803f066f924",
+						"exec": [
+							"tests[\"Error correcto creando producto por falta de permisos\"] = responseCode.code === 403;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Torta de plátano\",\r\n    \"price\": \"$2000\",\r\n    \"quantity\": \"12\",\r\n    \"category\": \"Torta\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post producto role none 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "220ccb51-dd63-43ae-88dc-6d858c4bc68c",
+						"exec": [
+							"tests[\"Error correcto creando producto por falta de permisos\"] = responseCode.code === 403;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Jugo de durazno\",\r\n    \"price\": \"$5000\",\r\n    \"quantity\": \"1\",\r\n    \"category\": \"Jugo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get productos role none",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f14de501-8c07-482a-989f-406594c7323a",
+						"exec": [
+							"tests[\"No genera error obteniendo los productos\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{new_id_a}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/products/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put producto role none",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f21636bc-3fbb-44c6-b806-844ee124cb2c",
+						"exec": [
+							"tests[\"Error correcto editando producto por falta de permisos\"] = responseCode.code === 403;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{new_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Torta de maracuyá\",\r\n    \"price\": \"$3000\",\r\n    \"quantity\": \"12\",\r\n    \"category\": \"Torta\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/products/{{new_product_id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"products",
+						"{{new_product_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "570f3d28-656e-41b2-89e8-81ad7ad0d1f6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ee8c347f-fec1-487a-bd08-52e45c0a4284",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
