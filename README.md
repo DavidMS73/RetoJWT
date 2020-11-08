@@ -10,7 +10,7 @@ Desde el directorio del proyecto:
     
 3.  Descargar y abrir las colecciones que se encuentran en la carpeta /collections/ en Postman.
     
-4.  Ejecutar en conjunto la colección (**Run**) o cada uno de sus request (**Send**) sin modificar nada. Esto se logra debido a que se usan variables en Postman que guardan el *token* y el *id* del producto creado.
+4.  Ejecutar en conjunto la colección (**Run**) o cada uno de sus request (**Send**) sin modificar nada. Esto se logra debido a que se usan variables en Postman que guardan el *token* y el *id* de cada usuario y producto creado.
 
 # Reto 📝
 
